@@ -1,18 +1,18 @@
-const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  plugins: [
-		new HtmlWebpackPlugin({
+	plugins: [
+		new HTMLWebpackPlugin({
 			filename: './index.html',
 		}),
 		new CleanWebpackPlugin(),
 		],
 	devtool: 'inline-source-map',
-  mode: 'production',
-  entry: {
-    header: {
+	mode: 'development',
+	entry: {
+		header: {
 			import: './modules/header/header.js',
 			dependOn: 'shared',
 		},
@@ -25,12 +25,12 @@ module.exports = {
 			dependOn: 'shared',
 		},
 		shared: 'jquery',
-  },
-  output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: '[name].bundle.js',
-  },
-  optimization: {
+	},
+	output: {
+		path: path.resolve(__dirname, 'public'),
+		filename: '[name].bundle.js',
+	},
+	optimization: {
 		splitChunks: {
 			chunks: 'all',
 		},
@@ -40,31 +40,29 @@ module.exports = {
 		open: true,
 		port: 8564,
 	},
-  performance: {
-    hints: false,
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
-  },
+	performance: {
+		maxAssetSize: 1000000,
+	},  
   module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.(gif|png|jp?g|svg)$/i,
-        use: [
-          "file-loader",
-          {
-            loader: "image-webpack-loader",
-            options: {
-              bypassOnDebug: true,
-              disable: true,
-            },
-          },
-        ],
-      },
-    ],
-  },
+	rules: [
+		{
+			test: /\.css$/i,
+			use: ["css-loader", "style-loader"],
+		},
+		{
+			test: /\.(?:ico|gif|png|jpe?g|svg)$/i,
+			type: 'asset/resource',
+			use: [
+				"file-loader",
+				{
+					loader: "image-webpack-loader",
+					options: {
+							bypassingOnDebug: true,
+							disable: true,
+					},
+				},
+			],
+		},
+	],
+},
 };
-
