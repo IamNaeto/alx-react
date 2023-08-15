@@ -1,37 +1,47 @@
-import React from "react";
-import { StyleSheet, css } from "aphrodite";
+import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
 
-function Login() {
+const Login = () => {
   return (
-    <React.Fragment>
-      <div className={css(styles["App-body"])}>
+    <>
+      <div className={css(styles.appBody, styles.small)}>
+        <h1>Log in to continue</h1>
         <p>Login to access the full dashboard</p>
-        <form>
-          <label htmlFor="email">Email:</label>
-          <input className={css(styles.input)} type="email" name="email"></input>
-          <label htmlFor="password">Password:</label>
-          <input className={css(styles.input)} type="password" name="password"></input>
-          <button>OK</button>
-        </form>
+        <label htmlFor="email">Email: </label>
+        <input className={css(styles.noBorder)} type="email" id="email" name="email" />
+        <label htmlFor="password">Password: </label>
+        <input className={css(styles.noBorder)} type="password" id="password" name="password" />
+        <button className={css(styles.yellowBorder)}>OK</button>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  "App-body": {
-    fontSize: "1rem",
-    padding: "2em",
-    height: "45%",
-    "@media (max-width: 900px)": {
-      display: "flex",
-      flexDirection: "column",
-    },
+  appBody: {
+    minHeight: '50vh',
+    textAlign: 'left',
+    marginTop: '2rem',
+    marginLeft: '2rem',
   },
-
-  input: {
-    margin: "10px",
+  small: {
+    '@media (max-width: 900px)': {
+      display: 'grid',
+      justifyContent: 'center',
+    }
   },
-});
+  noBorder: {
+    '@media (max-width: 900px)': {
+      border: 'none'
+    }
+  },
+  yellowBorder: {
+    '@media (max-width: 900px)': {
+      border: '2px solid gold',
+      backgroundColor: 'transparent',
+      width: '5vw'
+    }
+  }
+})
 
 export default Login;
